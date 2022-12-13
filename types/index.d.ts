@@ -2,6 +2,7 @@ import type { SbBlokData, StoryData } from '@storyblok/react/dist/types';
 
 interface StoryProp {
 	story: StoryData;
+	preview: boolean;
 }
 
 interface MyStoryBlokDataInterface extends SbBlokData {
