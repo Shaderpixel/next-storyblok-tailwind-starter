@@ -40,9 +40,13 @@ Underneath the hood, Storyblok V2 uses Axios for its XHTTP requests.
 
 ### Setting up HTTPS for Your Local Environment
 
+---
+
 After setting the access token, if you try to view the preview homepage in Storyblok you will likely see an error. Storyblok preview requires HTTPS connection from your localhost. There are two ways to accomplish that. We recommend the first method.
 
 #### Method 1
+
+---
 
 Start a development server with https proxy:
 
@@ -67,6 +71,8 @@ Start a development server with https proxy:
 
 #### Method 2
 
+---
+
 Create a static html page editor.html in your project with the following content:
 
 ```html
@@ -90,32 +96,53 @@ Create a static html page editor.html in your project with the following content
 
 ## Working with Storyblok Preview Environment
 
+---
+
 If you have setup the SSL connection for your local environment properly, you should now be able to see the Next.js bootstrap homepage in your home page content.
 
-Storyblok looks for content inside of the pages (Next 12) directory. If your page filename does not match the slug string, you can specify the real path in the Entry Configuration.
+Storyblok looks for content inside of the pages (Next 12) directory. If your page filename does not match the slug string, you can specify the real path in the Entry Configuration. To see this in action:
 
-To view the sample data fetching page, create a new Story content where the slug can be anything.Inside the Entry Configuration (look for the toggle adjustment icon in the middle of the secondary navbar of Storyblok v2), set the Real path to be `storyblok-sample-page`.
+> To view the sample data fetching page, create a new Story content where the slug can be anything. Inside the CMS Entry Configuration (look for the toggle adjustment icon in the middle of the secondary navbar of Storyblok v2), set the Real path to be `storyblok-sample-page` to match the actual file name.
 
-### Creating Storyblok Components and Working with Live Editor Preview
+To allow the data from a Storyblok page to connect with its visual representation, there is a slug property that needs to be set the same as what is defined either in the Entry Configuration's Slug or Real path fields.
 
-- For every component Blok that you add inside of the content page, a matching component file needs to be created.
+### Working with Live Editor Preview
+
+---
+
+[Enabling Visual Editor & Live Preview](https://www.storyblok.com/tp/add-a-headless-cms-to-next-js-in-5-minutes#enabling-the-visual-editor-live-preview)
+
+To enable Storyblok's Visual Editor, we need to connect the Storyblok Bridge. In order to do that, we will use the `useStoryblokState` React hook provided by @storyblok/react, so we can enable live updating for the story content.
+This hook allows us to listen for all the events emitted from Storyblok end (e.g. un/publish, change)
+
+Currently the way the `sample-storyblok-homepage.tsx` is set up to show the published content by default. To view the draft or preview stage of a piece of content, you have to set up the preview and exit preview URLs in the space. The preview URL will set a cookie value for preview flag while the exit preview URL will remove said flag, showing the published content.
+
+#### Setting up the Preview URLs
+
+---
+
+To set up a preview mode URL, go to the the Space's Settings > Visual Editor page
+
+1. Add a preview URL with the secret preview token set from the `.env.local` file. This token can be any string. The finished URL format should be `https://localhost:3010/api/preview?secret=MY_SECRET_TOKEN&slug=`
+
+2. To set up the exit preview mode URL: `https://localhost:3010/api/exit-preview?slug=`
+
+## Creating Storyblok Components
+
+---
+
+- For every component Blok that you add inside of the content page, a matching _component file_ needs to be created and exported from the components folder _index.ts_ file.
 - The new components also need to be declared inside of the components object that is passed to the Storyblok init, inside of `pages/_app.js`
-- By using `storyblokEditable` api with any component, we can make edit the component's values & properties iside the Storyblok Visual Editor.
+- By using `storyblokEditable` api with any component, we can make edit the component's values & properties inside the Storyblok Visual Editor.
 - `StoryblokComponent` needs to be used when there is a dynamic component parent is needed to wrap child content. It is also needed to display the components.
-- [Enabling Visual Editor & Live Preview](https://www.storyblok.com/tp/add-a-headless-cms-to-next-js-in-5-minutes#enabling-the-visual-editor-live-preview)
-  - To enable Storyblok's Visual Editor, we need to connect the Storyblok Bridge. In order to do that, we will use the useStoryblokState React hook provided by @storyblok/react, so we can enable live updating for the story content.
-  - this hook allows us to listen for all the events emitted from Storyblok end (e.g. un/publish, change)
 
 # TODO
 
-Things to flesh out:
-
-- How to set multiple preview environments
 - https://www.storyblok.com/tp/add-a-headless-cms-to-next-js-in-5-minutes
 
 # Resources
 
-This is based on [Storyblok's excellent tutorial](https://www.storyblok.com/tp/add-a-headless-cms-to-next-js-in-5-minutes)
+This starter project is based on [Storyblok's excellent tutorial](https://www.storyblok.com/tp/add-a-headless-cms-to-next-js-in-5-minutes)
 
 ### Learn More About Next.js
 
