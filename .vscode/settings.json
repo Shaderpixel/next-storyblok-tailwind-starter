@@ -1,6 +1,20 @@
 {
-    "cSpell.words": [
-        "Storyblok"
-    ],
-    "typescript.tsdk": "node_modules/typescript/lib"
+    "[typescript]": {
+		"editor.codeActionsOnSave": {
+			"source.organizeImports": true,
+			"source.fixAll.eslint": true
+		}
+	},
+    "editor.formatOnSave": true,
+	"editor.insertSpaces": false,
+	"editor.tabSize": 4,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+    "files.eol": "\n",
+	"files.exclude": { "node_modules": false },
+	"files.insertFinalNewline": true,
+	"files.trimTrailingWhitespace": true,
+	"search.useIgnoreFiles": true,
+	"eslint.validate": ["javascript", "typescript"],
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+	"typescript.tsdk": "node_modules/typescript/lib",
 }

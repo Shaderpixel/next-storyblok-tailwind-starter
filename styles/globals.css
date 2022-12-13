@@ -1,3 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --text-primary: #000;
+  --text-secondary: #bada55;
+}
+
+
 html,
 body {
   padding: 0;
