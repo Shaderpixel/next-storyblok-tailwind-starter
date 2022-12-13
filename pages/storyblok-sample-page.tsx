@@ -1,11 +1,7 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 
-import {
-	useStoryblokState,
-	getStoryblokApi,
-	StoryblokComponent,
-} from '@storyblok/react';
+import { useStoryblokState, getStoryblokApi, StoryblokComponent } from '@storyblok/react';
 import { StoryProp } from '../types';
 import { GetStaticPropsContext } from 'next';
 
@@ -16,10 +12,10 @@ export default function Home({ story, preview }: StoryProp) {
 		<div className={styles.container}>
 			<Head>
 				<title>Create Next App</title>
-				<link rel='icon' href='/favicon.ico' />
+				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<header>
+			<header className="u-mb-2 u-border-b-2 u-border-sky-500">
 				<h1>{story ? story.name : 'My Site'}</h1>
 			</header>
 
