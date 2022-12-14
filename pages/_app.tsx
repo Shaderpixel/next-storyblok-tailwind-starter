@@ -2,6 +2,14 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { storyblokInit, apiPlugin } from '@storyblok/react';
 import { Feature, Grid, Teaser, Page } from '../components';
+import { Inter } from '@next/font/google'
+
+export const inter = Inter({
+	subsets: ['latin'],
+	variable: '--font-inter-vf',
+	axes: ['slnt'],
+})
+
 
 const components = {
 	feature: Feature,
@@ -18,5 +26,7 @@ storyblokInit({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
-	return <Component {...pageProps} />;
+	return <main className={`${inter.variable} u-font-sans`}>
+		<Component {...pageProps} />
+	</main>
 }
