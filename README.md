@@ -2,9 +2,9 @@
 
 We have put together this starter kit for future project developments using the following stack:
 
-- [Next.js](https://nextjs.org/): Front-end React meta-framework. This starter kit is bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-- [Storyblok](https://www.storyblok.com/): Headless CMS with preview environment
-- [Tailwind CSS](https://tailwindcss.com/): Utility-based CSS library
+-   [Next.js](https://nextjs.org/): Front-end React meta-framework. This starter kit is bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+-   [Storyblok](https://www.storyblok.com/): Headless CMS with preview environment
+-   [Tailwind CSS](https://tailwindcss.com/): Utility-based CSS library
 
 # Getting Started
 
@@ -64,8 +64,8 @@ Start a development server with https proxy:
           $ npm install -g local-ssl-proxy
           $ npm run local-ssl-proxy
 
-    - You can change the source and target ports inside of package.json if you changed the default ports or the PEM SSL file names.
-    - The default script is: `local-ssl-proxy --source 3010 --target 3000 --cert localhost.pem --key localhost-key.pem`
+    -   You can change the source and target ports inside of package.json if you changed the default ports or the PEM SSL file names.
+    -   The default script is: `local-ssl-proxy --source 3010 --target 3000 --cert localhost.pem --key localhost-key.pem`
 
 3.  https is now running on port 3010 and forwarding requests to http 3000.
 
@@ -131,27 +131,27 @@ To set up a preview mode URL, go to the the Space's Settings > Visual Editor pag
 
 ---
 
-- For every component Blok that you add inside of the content page, a matching _component file_ needs to be created and exported from the components folder _index.ts_ file.
-- The new components also need to be declared inside of the components object that is passed to the Storyblok init, inside of `pages/_app.js`
-- By using `storyblokEditable` api with any component, we can make edit the component's values & properties inside the Storyblok Visual Editor.
-- `StoryblokComponent` needs to be used when there is a dynamic component parent is needed to wrap child content. It is also needed to display the components.
+-   For every component Blok that you add inside of the content page, a matching _component file_ needs to be created and exported from the components folder _index.ts_ file.
+-   The new components also need to be declared inside of the components object that is passed to the Storyblok init, inside of `pages/_app.js`
+-   By using `storyblokEditable` api with any component, we can make edit the component's values & properties inside the Storyblok Visual Editor.
+-   `StoryblokComponent` needs to be used when there is a dynamic component parent is needed to wrap child content. It is also needed to display the components.
 
 # TODO
 
-- https://www.storyblok.com/tp/add-a-headless-cms-to-next-js-in-5-minutes
+-   https://www.storyblok.com/tp/add-a-headless-cms-to-next-js-in-5-minutes
+
+# Styling
+
+Styling in this starter project is done through [CSS modules](https://github.com/css-modules/css-modules), and Tailwind utility classes. We are solely relying on Tailwind as our preprocessor so can we get a fast compilation of our CSS without unused CSS using [Tailwind's Just-In-Time engine](https://tailwindcss.com/blog/just-in-time-the-next-generation-of-tailwind-css). Also, we can't properly leverage Tailwind's functions in other preprocessors (e.g. [theme()](https://tailwindcss.com/docs/functions-and-directives#theme)) if we use Tailwind as our source-of-truth when declaring theme values such as spacing, [due to different compilation times](https://tailwindcss.com/docs/using-with-preprocessors#using-sass-less-or-stylus).
+
+For typography, fluid typography is set up and the Inter variable font is also loaded through @next/font package.
 
 # Resources
 
-This starter project is based on [Storyblok's excellent tutorial](https://www.storyblok.com/tp/add-a-headless-cms-to-next-js-in-5-minutes)
-
-### Learn More About Next.js
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+-   Portion of this starter project is based on [Storyblok's excellent tutorial](https://www.storyblok.com/tp/add-a-headless-cms-to-next-js-in-5-minutes)
+-   As mentioned in the intro, this starter project was bootstrapped using Create Next App. To learn more about Next.js, take a look at the following resources:
+    -   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+    -   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 ## Deployment
 
