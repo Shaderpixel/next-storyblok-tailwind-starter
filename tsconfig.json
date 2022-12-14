@@ -16,8 +16,7 @@
 		"incremental": true,
 		// Ensure that .d.ts files are created by tsc, but not .js files
 		"declaration": true,
-		// "noEmit": true,
-		"emitDeclarationOnly": true
+		"noEmit": true
 	},
 	"include": [
 		"types/next-env.d.ts",

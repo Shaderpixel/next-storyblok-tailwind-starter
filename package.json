@@ -1,5 +1,5 @@
 {
-	"name": "smashing-storyblok-workshop",
+	"name": "nextjs-tailwind-storyblok-starter",
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
@@ -24,6 +24,7 @@
 		]
 	},
 	"dependencies": {
+		"@next/font": "^13.0.6",
 		"@storyblok/react": "^1.3.4",
 		"@types/node": "18.11.12",
 		"@types/react": "18.0.26",
