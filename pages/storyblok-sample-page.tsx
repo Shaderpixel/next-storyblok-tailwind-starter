@@ -25,8 +25,8 @@ export default function Home({ story, preview }: StoryProp) {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-	// home is the default slug for the homepage in Storyblok
-	let slug = 'storyblok';
+	// slug should match SB slug otherwise you have to use SB real path field
+	let slug = 'storyblok-sample-page';
 
 	// load the draft version
 	let sbParams = {
