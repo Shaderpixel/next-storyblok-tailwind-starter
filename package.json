@@ -1,7 +1,25 @@
 {
-	"name": "nextjs-tailwind-storyblok-starter",
-	"version": "0.1.0",
+	"name": "nextjs-storyblok-tailwind-starter",
+	"version": "1.0.0",
+	"description": "A Next.js-bootstrapped project starter kit for Storyblok headless CMS with Tailwind CSS configured. Created by 9thCO Agency.",
+	"keywords": [
+		"Next.js",
+		"Next",
+		"Storyblok",
+		"Tailwind"
+	],
+	"bugs": {
+		"url": "https://github.com/Shaderpixel/next-storyblok-tailwind-starter/issues",
+		"email": "richard.lock@9thco.com"
+	},
+	"author": {
+		"name": "Richard Lock",
+		"email": "richard.lock@9thco.com",
+		"url": "https://www.iamrichardlock.com"
+	},
+	"contributors": [],
 	"private": true,
+	"browser": "./pages/_app.tsx",
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
