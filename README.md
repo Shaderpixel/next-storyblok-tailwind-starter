@@ -6,153 +6,74 @@ We have put together this starter kit for future project developments using the 
 -   [Storyblok](https://www.storyblok.com/): Headless CMS with preview environment
 -   [Tailwind CSS](https://tailwindcss.com/): Utility-based CSS library
 
-# Getting Started
+# Pre-requisites
 
-## Starting Next.js Local Development Server
+You will need to have Node, NPM/Yarn, and Homebrew set up on your machine for local development. You will also need to have a Storyblok account and space set up to follow this instructions. These instructions are meant for Mac OS.
 
----
+# Starting your local environment
 
-First, run the development server:
+1. After cloning this repo into your project directory, run `npm i` to install the required project dependencies
+2. Make a copy of the `.env.local.example` file as `.env.local` and update the values in there.
+    - Copy the Access Token from your Storyblok space's Settings page and stick it inside the STORYBLOK_ACCESS_TOKEN key
+    - STORYBLOK_PREVIEW_TOKEN value can be any string you desire. This value will be used when setting up the URL to preview draft changes.
+3. Setup HTTPS for your localhost through local SSL proxy:
 
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Connecting to Storyblok Preview Environment
-
----
-
-Once you have set up a space inside of Storyblok, copy the preview Access Token from the Settings page and stick it inside of the .env.local file. This token will be used in the Storyblok init method in the `pages/_app.js` entry point file to connect to the Storyblok preview environment.
-
-> The Storyblok connection is currently set to US region inside of the init configuration object. If your space is created in the EU region, you can remove it since its default.
-
-Underneath the hood, Storyblok V2 uses Axios for its XHTTP requests.
-
-### Setting up HTTPS for Your Local Environment
-
----
-
-After setting the access token, if you try to view the preview homepage in Storyblok you will likely see an error. Storyblok preview requires HTTPS connection from your localhost. There are two ways to accomplish that. We recommend the first method.
-
-#### Method 1
-
----
-
-Start a development server with https proxy:
-
-1.  Install mkcert for creating a valid certificate (Mac OS):
+    1. Install mkcert for creating a valid SSL certificate (Mac OS):
 
     ```bash
           $ brew install mkcert
     	  $ brew install nss
-          $ mkcert -install
-          $ mkcert localhost
     ```
 
-2.  Then install and run the proxy
+    2. Then create cert, abd install and run the proxy
 
-          $ npm install -g local-ssl-proxy
-          $ npm run local-ssl-proxy
+    ```bash
+    	$ mkcert -install
+    	$ mkcert localhost
+    	$ npm install -g local-ssl-proxy
+    ```
 
-    -   You can change the source and target ports inside of package.json if you changed the default ports or the PEM SSL file names.
-    -   The default script is: `local-ssl-proxy --source 3010 --target 3000 --cert localhost.pem --key localhost-key.pem`
+4. Start your local development server and SSL proxy in separate terminals
+    ```bash
+    	$ npm run dev
+    	$ npm run local-ssl-proxy
+    ```
+    - Opening your browser and going to https://localhost:3010 should show the Next.js starter homepage.
 
-3.  https is now running on port 3010 and forwarding requests to http 3000.
+# Setting up Storyblok
 
-#### Method 2
+1. Set up your preview URL by going to your `Settings > Visual Editor`.
 
----
+    - For the default environment, you can set it to `https://localhost:3010`
+    - In the _Preview URLs_ section, add the following two entries:
+        - Name: `Draft mode`, Location: `https://localhost:3010/api/preview?secret=MY_SECRET_TOKEN&slug=`
+            > Replace `MY_SECRET_TOKEN` with the value you set for `STORYBLOK_PREVIEW_TOKEN` inside of your .env.local file.
+        - Name: `Exit draft mode`, Location: `https://localhost:3010/api/exit-preview?slug=`
 
-Create a static html page editor.html in your project with the following content:
+2. Your Storyblok space comes with a default homepage. To view the starter kit's homepage inside of the default home path, go to the homepage content and change the real path field to `/`.
+    > You have to look for the adjustment icon in the middle of the secondary navigation of the visual editor.
+3. To view the sample data-fetching page that is included with this starter kit and the draft mode in action:
 
-```html
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Storyblok Admin</title>
-	</head>
-	<body>
-		<div id="app"></div>
-		<script type="text/javascript">
-			STORYBLOK_PREVIEW_URL = 'http://localhost:3000/';
-		</script>
-		<script
-			src="https://app.storyblok.com/f/app-latest.js"
-			type="text/javascript"
-		></script>
-	</body>
-</html>
-```
-
-## Working with Storyblok Preview Environment
-
----
-
-If you have setup the SSL connection for your local environment properly, you should now be able to see the Next.js bootstrap homepage in your home page content.
-
-Storyblok looks for content inside of the pages (Next 12) directory. If your page filename does not match the slug string, you can specify the real path in the Entry Configuration. To see this in action:
-
-> To view the sample data fetching page, create a new Story content where the slug can be anything. Inside the CMS Entry Configuration (look for the toggle adjustment icon in the middle of the secondary navbar of Storyblok v2), set the Real path to be `storyblok-sample-page` to match the actual file name.
-
-To allow the data from a Storyblok page to connect with its visual representation, there is a slug property that needs to be set the same as what is defined either in the Entry Configuration's Slug or Real path fields.
-
-### Working with Live Editor Preview
-
----
-
-[Enabling Visual Editor & Live Preview](https://www.storyblok.com/tp/add-a-headless-cms-to-next-js-in-5-minutes#enabling-the-visual-editor-live-preview)
-
-To enable Storyblok's Visual Editor, we need to connect the Storyblok Bridge. In order to do that, we will use the `useStoryblokState` React hook provided by @storyblok/react, so we can enable live updating for the story content.
-This hook allows us to listen for all the events emitted from Storyblok end (e.g. un/publish, change)
-
-Currently the way the `sample-storyblok-homepage.tsx` is set up to show the published content by default. To view the draft or preview stage of a piece of content, you have to set up the preview and exit preview URLs in the space. The preview URL will set a cookie value for preview flag while the exit preview URL will remove said flag, showing the published content.
-
-#### Setting up the Preview URLs
-
----
-
-To set up a preview mode URL, go to the the Space's Settings > Visual Editor page
-
-1. Add a preview URL with the secret preview token set from the `.env.local` file. This token can be any string. The finished URL format should be `https://localhost:3010/api/preview?secret=MY_SECRET_TOKEN&slug=`
-
-2. To set up the exit preview mode URL: `https://localhost:3010/api/exit-preview?slug=`
-
-## Creating Storyblok Components
-
----
-
--   For every component Blok that you add inside of the content page, a matching _component file_ needs to be created and exported from the components folder _index.ts_ file.
--   The new components also need to be declared inside of the components object that is passed to the Storyblok init, inside of `pages/_app.js`
--   By using `storyblokEditable` api with any component, we can make edit the component's values & properties inside the Storyblok Visual Editor.
--   `StoryblokComponent` needs to be used when there is a dynamic component parent is needed to wrap child content. It is also needed to display the components.
-
-# TODO
-
--   https://www.storyblok.com/tp/add-a-headless-cms-to-next-js-in-5-minutes
+    - create a content called `Storyblok sample page`. The slug must be `storyblok-sample-page`. This matches the slug value inside of the code's `getStaticProps` function.
+    - Add a few content bloks such as the default Teaser or Feature blok and add some strings inside it and hit Publish. You should be able to see it appear in the Visual Editor.
+    - In the Preview URL drop down, select the `Draft mode` URL you have created earlier. This will set your editor in draft mode.
+    - Any changes you made while in draft mode will not affect your published content.
+    - To exit draft mode, select the `Exit draft mode` from the Preview URL
+        > Word of Caution: If you were originally in draft mode and you choose any other preview URL aside from `Exit draft mode` you will still be in draft mode.
 
 # Styling
 
-Styling in this starter project is done through [CSS modules](https://github.com/css-modules/css-modules), and Tailwind utility classes. We are solely relying on Tailwind as our preprocessor so can we get a fast compilation of our CSS without unused CSS using [Tailwind's Just-In-Time engine](https://tailwindcss.com/blog/just-in-time-the-next-generation-of-tailwind-css). Also, we can't properly leverage Tailwind's functions in other preprocessors (e.g. [theme()](https://tailwindcss.com/docs/functions-and-directives#theme)) if we use Tailwind as our source-of-truth when declaring theme values such as spacing, [due to different compilation times](https://tailwindcss.com/docs/using-with-preprocessors#using-sass-less-or-stylus).
+Styling in this starter project is done through [CSS modules](https://github.com/css-modules/css-modules), and Tailwind utility classes.
+
+We are solely relying on Tailwind as our preprocessor so can we get a fast compilation of our CSS without unused CSS using [Tailwind's Just-In-Time engine](https://tailwindcss.com/blog/just-in-time-the-next-generation-of-tailwind-css). Also, we can't properly leverage Tailwind's functions in other preprocessors (e.g. [theme()](https://tailwindcss.com/docs/functions-and-directives#theme)) if we use Tailwind as our source-of-truth when declaring theme values such as spacing, [due to different compilation times](https://tailwindcss.com/docs/using-with-preprocessors#using-sass-less-or-stylus).
 
 For typography, fluid typography is set up and the Inter variable font is also loaded through @next/font package.
 
 # Resources
 
--   Portion of this starter project is based on [Storyblok's excellent tutorial](https://www.storyblok.com/tp/add-a-headless-cms-to-next-js-in-5-minutes)
--   As mentioned in the intro, this starter project was bootstrapped using Create Next App. To learn more about Next.js, take a look at the following resources:
-    -   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-    -   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Portions of this starter project is based on [Storyblok's excellent tutorial](https://www.storyblok.com/tp/add-a-headless-cms-to-next-js-in-5-minutes)
 
-## Deployment
+As mentioned in the intro, this starter project was bootstrapped using Create Next App. To learn more about Next.js, take a look at the following resources:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+-   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
