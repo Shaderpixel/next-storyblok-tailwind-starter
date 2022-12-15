@@ -1,16 +1,8 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 
-import {
-	useStoryblokState,
-	getStoryblokApi,
-	StoryblokComponent,
-} from '@storyblok/react';
-import {
-	GetStaticPathsContext,
-	GetStaticPathsResult,
-	GetStaticPropsContext,
-} from 'next';
+import { useStoryblokState, getStoryblokApi, StoryblokComponent } from '@storyblok/react';
+import { GetStaticPathsContext, GetStaticPathsResult, GetStaticPropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import { StoryProp } from '../types';
 
@@ -21,7 +13,7 @@ export default function Page({ story, preview }: StoryProp) {
 		<div className={styles.container}>
 			<Head>
 				<title>{story ? story.name : 'My Site'}</title>
-				<link rel='icon' href='/favicon.ico' />
+				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<header>
 				<h1>{story ? story.name : 'My Site'}</h1>

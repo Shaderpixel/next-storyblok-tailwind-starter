@@ -9,6 +9,7 @@ interface MyStoryBlokDataInterface extends SbBlokData {
 	body: SbBlokData[];
 	story: SbBlokData;
 	columns: SbBlokData[];
+	[index: string]: SbBlokKeyDataTypes;
 }
 
 // Pattern copied from @storyblok/react/dist/types/components/storyblok-component.d.ts

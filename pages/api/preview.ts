@@ -4,10 +4,7 @@ type Data = {
 	message: string;
 };
 
-export default async function preview(
-	req: NextApiRequest,
-	res: NextApiResponse<Data>
-) {
+export default async function preview(req: NextApiRequest, res: NextApiResponse<Data>) {
 	const { slug = '' } = req.query;
 	// get the storyblok params for the bridge to work
 	const params = req.url?.split('?');
@@ -25,9 +22,7 @@ export default async function preview(
 	const cookies = res.getHeader('Set-Cookie') as unknown as string[];
 	res.setHeader(
 		'Set-Cookie',
-		cookies.map((cookie) =>
-			cookie.replace('SameSite=Lax', 'SameSite=None;Secure')
-		)
+		cookies.map((cookie) => cookie.replace('SameSite=Lax', 'SameSite=None;Secure'))
 	);
 
 	// Redirect to the path from entry
