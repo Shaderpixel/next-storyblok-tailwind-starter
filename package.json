@@ -1,6 +1,6 @@
 {
 	"name": "nextjs-storyblok-tailwind-starter",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "A Next.js-bootstrapped project starter kit for Storyblok headless CMS with Tailwind CSS configured. Created by 9thCO Agency.",
 	"keywords": [
 		"Next.js",
