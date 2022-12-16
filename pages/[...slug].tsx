@@ -25,8 +25,20 @@ export default function Page({ story, preview }: StoryProp) {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-	// home is the default slug for the homepage in Storyblok
-	let slug = 'storyblok';
+	// dynamic slug or go back to homepage?
+	let paramSlug = context.params?.slug;
+	let slug = (paramSlug && Array.isArray(paramSlug) ? paramSlug.join('/') : paramSlug) ?? 'home';
+
+	// Verbose explanation of the above slug value
+	// if (paramSlug) {
+	// 	if (Array.isArray(paramSlug)) {
+	// 		slug = paramSlug.join('/');
+	// 	} else {
+	// 		slug = paramSlug;
+	// 	}
+	// } else {
+	// 	slug = 'home';
+	// }
 
 	// load the draft version
 	let sbParams = {
@@ -53,7 +65,9 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 export async function getStaticPaths(): Promise<GetStaticPathsResult> {
 	const storyblokApi = getStoryblokApi();
 	let { data } = await storyblokApi.get('cdn/links/');
-	console.log('data', data);
+
+	// Debug
+	// console.log('data', data);
 
 	let paths: Array<string | { params: ParsedUrlQuery; locale?: string }> = [];
 	Object.keys(data.links).forEach((linkKey) => {
@@ -67,7 +81,8 @@ export async function getStaticPaths(): Promise<GetStaticPathsResult> {
 		paths.push({ params: { slug: splittedSlug } });
 	});
 
-	console.log('paths', paths);
+	// Debug
+	// console.log('paths', paths);
 
 	return {
 		paths: paths,
