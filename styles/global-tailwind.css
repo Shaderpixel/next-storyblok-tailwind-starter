@@ -1,0 +1,95 @@
+/* Tailwind CSS Overrides */
+/* Font families */
+
+/* Setting root font size */
+:root {
+	/* Setting global fluid typography that will be reflected in Tailwind */
+	/* https://utopia.fyi/blog/clamp/ */
+	--f-max-w: 122.5; /*1960px in REM*/
+	--f-min-w: 22.5; /*360px in REM*/
+	--f-minus: (-1 * var(--f-min-w)); /* Precalcuation for the -MinWidth we need */
+	--f-w: (
+		var(--f-max-w) - var(--f-min-w)
+	); /* Precalculation for the (MaxWidth - MinWidth) we need */
+
+	/* Per step size */
+	--f-0-min: 1; /* Min font size 16px in rem */
+	--f-0-max: 1.0625; /* Max font size 17px in rem */
+	--f-0-slope: (var(--f-0-max) - var(--f-0-min)) / (var(--f-max-w) - var(--f-min-w));
+	--f-0-intersection: ((-1 * var(--f-min-w)) * var(--f-0-slope) + var(--f-0-min));
+
+	font-size: clamp(
+		calc(var(--f-0-min) * 1rem),
+		calc(var(--f-0-intersection) * 1rem + var(--f-0-slope) * 100vw),
+		calc(var(--f-0-max) * 1rem)
+	);
+}
+
+@layer base {
+	body {
+		@apply u-text-gfg-body;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		@apply u-font-medium;
+		margin-bottom: 0.25em;
+		margin-top: 0.5em;
+	}
+
+	h1 {
+		@apply u-text-4xl md:u-text-5xl;
+	}
+	h2 {
+		@apply u-text-3xl md:u-text-4xl;
+	}
+	h3 {
+		@apply u-text-2xl md:u-text-3xl;
+	}
+	h4 {
+		@apply u-text-xl md:u-text-2xl;
+	}
+	h5 {
+		@apply u-text-lg md:u-text-xl;
+	}
+	h6 {
+		@apply u-text-base;
+	}
+
+	p a,
+	li a {
+		@apply u-transition hover:u-text-gfg-primary;
+	}
+}
+
+@layer utilities {
+	/* flex two columns with 1rem gap. Use md:u-gap-8 on parent flex container */
+	.u-col-1\/2 {
+		/* width: calc(50% - theme(spacing.8) / 2); */
+		width: calc(50% - 2rem / 2);
+	}
+
+	/* flex three columns with 1rem gap*/
+	.u-gap-1\/2 {
+		/* gap: calc(theme(spacing.8) / 2); */
+		gap: calc(2rem / 2);
+	}
+	.u-col-1\/3 {
+		/* width: calc(33.33% - theme(spacing.8) / 3); */
+		width: calc(33.33% - 2rem / 3);
+	}
+
+	/* flex four columns with 0.33rem gap*/
+	.u-gap-1\/3 {
+		/* gap: calc(theme(spacing.12) / 3); */
+		gap: calc(3rem / 3);
+	}
+	.u-col-1\/4 {
+		/* width: calc(33.33% - theme(spacing.12) / 3); */
+		width: calc(25% - 3rem / 4);
+	}
+}

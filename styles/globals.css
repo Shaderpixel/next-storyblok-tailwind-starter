@@ -2,20 +2,27 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
-@import './global-typography.css';
+@import './global-tailwind.css';
 
 /* Define your global CSS custom properties here */
 :root {
-	--text-primary: #000;
-	--text-secondary: #bada55;
-}
-
-html,
-body {
-	padding: 0;
-	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
-		Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+	--color-primary: #058ece;
+	--color-secondary: '#0091d0';
+	--color-tertiary: '#44494d';
+	--color-lightGray: '#666a6c';
+	--color-navText: '#252525';
+	--color-carouselActive: '#44494d';
+	--color-carousel: '#e0e0e0';
+	--color-body: '#555';
+	--swiper-scrollbar-border-radius: 0;
+	--swiper-scrollbar-top: auto;
+	--swiper-scrollbar-bottom: 4px;
+	--swiper-scrollbar-left: auto;
+	--swiper-scrollbar-right: 4px;
+	--swiper-scrollbar-sides-offset: 1%;
+	--swiper-scrollbar-bg-color: rgb(214, 214, 214);
+	--swiper-scrollbar-drag-bg-color: rgb(68, 68, 68);
+	--swiper-scrollbar-size: 4px;
 }
 
 a {
@@ -23,11 +30,13 @@ a {
 	text-decoration: none;
 }
 
-* {
-	box-sizing: border-box;
+.footer-links {
+	background: url(../public/images/footer-logo-bg.png) #f7f7f7 no-repeat;
+	background-position-x: -webkit-calc(100% - 3rem);
+	background-position-y: 3rem;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
 	html {
 		color-scheme: dark;
 	}
@@ -35,4 +44,30 @@ a {
 		color: white;
 		background: black;
 	}
+} */
+
+/* Swiper styles */
+
+.swiper-wrapper {
+	@apply u-mb-7 u-pb-8;
+}
+
+.swiper-scrollbar .swiper-scrollbar-drag {
+	@apply u-mt-[-4px] u-h-2.5;
+}
+
+.swiper-scrollbar {
+	@apply u-mb-[30px];
+}
+
+.swiper-scrollbar-drag:hover,
+.swiper-scrollbar-drag:focus {
+	@apply u-bg-[var(--color-primary)];
+}
+
+.swiper-horizontal > .swiper-scrollbar,
+.swiper-scrollbar .swiper-scrollbar-horizontal {
+	left: 50% !important;
+	transform: translateX(-50%);
+	width: var(--swiper-scrollbar-width) !important;
 }

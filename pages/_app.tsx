@@ -1,24 +1,28 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { storyblokInit, apiPlugin } from '@storyblok/react';
-import { Feature, Grid, Teaser, Page } from '../components';
-import { Inter } from '@next/font/google';
-
-export const inter = Inter({
-	subsets: ['latin'],
-	variable: '--font-inter-vf',
-	axes: ['slnt'],
-});
+import {
+	Carousel,
+	Downloads,
+	Layout,
+	Page,
+	StaticImage,
+	Header,
+	Footer,
+} from '../components';
 
 const components = {
-	feature: Feature,
-	grid: Grid,
-	teaser: Teaser,
+	carousel: Carousel,
+	downloads: Downloads,
+	layout: Layout,
 	page: Page,
+	static_image_block: StaticImage,
+	global_components: Header,
+	footer: Footer,
 };
 
 storyblokInit({
-	accessToken: process.env.STORYBLOK_ACCESS_TOKEN,
+	accessToken: process.env.NEXT_PUBLIC_STORYBLOK_ACCESS_TOKEN,
 	use: [apiPlugin], // describe what Storyblok features to use
 	apiOptions: { region: 'us' }, // region is needed if space is created in US
 	components,
@@ -26,8 +30,8 @@ storyblokInit({
 
 export default function App({ Component, pageProps }: AppProps) {
 	return (
-		<main className={`${inter.variable} u-font-sans`}>
+		<Layout story={pageProps.global_components}>
 			<Component {...pageProps} />
-		</main>
+		</Layout>
 	);
 }

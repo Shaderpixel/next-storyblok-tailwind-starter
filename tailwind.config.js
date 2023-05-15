@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const { extractTwColorsToCssVars } = require('./utils/tailwind.customUtilities');
-const { fontFamily } = require('tailwindcss/defaultTheme')
+const { fontFamily } = require('tailwindcss/defaultTheme');
 
 module.exports = {
 	prefix: 'u-',
@@ -11,23 +11,25 @@ module.exports = {
 		//lineHeight: {},
 		extend: {
 			colors: {
-				ninja: {
-				'100': '#f5f5f5',
-				'200': '#eeeeee',
-				'300': '#e0e0e0',
-				'400': '#bdbdbd',
-				'500': '#9e9e9e',
-				'600': '#757575',
-				'700': '#616161',
-				'800': '#424242',
-				'900': '#212121',
+				gfg: {
+					primary: '#058ece',
+					secondary: '#0091d0',
+					tertiary: '#44494d',
+					lightGray: '#666a6c',
+					navText: '#252525',
+					carouselActive: '#44494d',
+					carousel: '#e0e0e0',
+					body: '#555',
 				},
+			},
+			spacing: {
+				'5%': '5%',
+				'6%': '6%',
 			},
 		},
 		fontFamily: {
-			sans: [
-				'var(--font-inter-vf)', ...fontFamily.sans
-			],
+			sans: ['var(--font-open-sans)', ...fontFamily.sans],
+			sansGotham: ['var(--font-gotham)', 'var(--font-open-sans)', ...fontFamily.sans],
 		},
 	},
 	// official plugins https://tailwindcss.com/docs/plugins#official-plugins
